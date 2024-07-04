@@ -15,8 +15,11 @@ interface MainPageState {
   error: string | null;
   checkingError: boolean;
 }
-export default class MainPage extends Component<MainPageState> {
-  state = {
+export default class MainPage extends Component<
+  Record<string, never>,
+  MainPageState
+> {
+  state: MainPageState = {
     people: [],
     loading: true,
     error: null,
@@ -51,7 +54,7 @@ export default class MainPage extends Component<MainPageState> {
     this.fetchPeople(name);
   };
 
-  errorCheck = () => {
+  errorCheck = (): void => {
     this.setState({ checkingError: true });
   };
 

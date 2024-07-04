@@ -26,26 +26,36 @@ export default class Search extends Component<
   }
 
   handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ search: e.target.value.trim() });
+    this.setState({ search: e.target.value });
   };
 
   handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    this.props.searchPerson(this.state.search);
+    const trimmedSearch = this.state.search.trim();
+    this.props.searchPerson(trimmedSearch);
   };
 
   render() {
     return (
-      <form className="search" onSubmit={this.handleSearch}>
+      <form
+        className="search"
+        onSubmit={this.handleSearch}
+        name="searchForm"
+      >
         <input
           className="searchInput"
           placeholder="search"
           type="search"
+          name="searchFormInput"
           value={this.state.search}
           onChange={this.handleInput}
         />
 
-        <button className="searchButton" type="submit">
+        <button
+          className="searchButton"
+          type="submit"
+          name="searchFormButton"
+        >
           Search
         </button>
       </form>
