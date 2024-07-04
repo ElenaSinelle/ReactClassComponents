@@ -17,9 +17,13 @@ export default class Person extends Component<PersonProps> {
 
     return (
       <div className="person">
-        <div className="name">{person.name}</div>
-        <div className="gender">{person.gender}</div>
-        <div className="birthYear">{person.birth_year}</div>
+        <div className="name">Name: {person.name}</div>
+        <div className="gender">
+          Gender: {person.gender}
+        </div>
+        <div className="birthYear">
+          Date of Birth: {person.birth_year}
+        </div>
       </div>
     );
   }

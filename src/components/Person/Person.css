@@ -1,0 +1,10 @@
+.person {
+  padding: 1rem;
+  border-radius: 0.3rem;
+  border: 1px solid #747bff;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 1rem;
+}

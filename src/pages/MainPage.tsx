@@ -1,7 +1,7 @@
 import { Component } from "react";
-import "./MainPage.css";
 import Search from "../components/Search/Search";
 import Results from "../components/Results/Results";
+import "./MainPage.css";
 
 interface PersonData {
   name: string;
@@ -62,21 +62,23 @@ export default class MainPage extends Component<MainPageState> {
 
     return (
       <div className="mainPage">
-        <Search searchPerson={this.searchPerson} />
+        <section className="top">
+          <Search searchPerson={this.searchPerson} />
+        </section>
 
-        <div className="resultBlock">
+        <section className="bottom">
           {this.state.loading ? (
             <p>Loading...</p>
           ) : (
             <Results people={this.state.people} />
           )}
-          <button
-            className="errorBoundary"
-            onClick={this.errorCheck}
-          >
-            Error Boundary Check
-          </button>
-        </div>
+
+          <div className="errorBoundaryCheck">
+            <button onClick={this.errorCheck}>
+              Error Boundary Check
+            </button>
+          </div>
+        </section>
       </div>
     );
   }
