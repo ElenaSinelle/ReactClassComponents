@@ -11,12 +11,7 @@ interface PersonProps {
   person: PersonData;
 }
 
-interface PersonState {}
-
-export default class Person extends Component<
-  PersonProps,
-  PersonState
-> {
+export default class Person extends Component<PersonProps> {
   render() {
     const { person } = this.props;
 

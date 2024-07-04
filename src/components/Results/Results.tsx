@@ -11,12 +11,7 @@ interface ResultsProps {
   people: PersonData[];
 }
 
-interface ResultsState {}
-
-export default class Results extends Component<
-  ResultsProps,
-  ResultsState
-> {
+export default class Results extends Component<ResultsProps> {
   render() {
     const { people = [] } = this.props;
 

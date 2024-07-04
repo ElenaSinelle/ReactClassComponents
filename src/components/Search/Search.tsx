@@ -1,20 +1,45 @@
-import { Component } from "react";
+import { Component, ChangeEvent, FormEvent } from "react";
 import "./Search.css";
 
-interface SearchProps {}
-interface SearchState {}
+interface SearchProps {
+  searchPerson: (name: string) => void;
+}
+interface SearchState {
+  search: string;
+}
 
 export default class Search extends Component<
   SearchProps,
   SearchState
 > {
+  state: SearchState = {
+    search: "",
+  };
+
+  handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ search: e.target.value.trim() });
+  };
+
+  handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    this.props.searchPerson(this.state.search);
+  };
+
   render() {
     return (
-      <div className="search">
-        <input />
-        <label></label>
-        <button></button>
-      </div>
+      <form className="search" onSubmit={this.handleSearch}>
+        <input
+          className="searchInput"
+          placeholder="search"
+          type="search"
+          value={this.state.search}
+          onChange={this.handleInput}
+        />
+
+        <button className="searchButton" type="submit">
+          Search
+        </button>
+      </form>
     );
   }
 }

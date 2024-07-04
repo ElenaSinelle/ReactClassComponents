@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "./MainPage.css";
-// import Search from "../components/Search/Search";
+import Search from "../components/Search/Search";
 import Results from "../components/Results/Results";
 
 interface PersonData {
@@ -12,11 +12,13 @@ interface PersonData {
 interface MainPageState {
   people: PersonData[];
   loading: boolean;
+  error: string | null;
 }
 export default class MainPage extends Component<MainPageState> {
   state = {
     people: [],
     loading: true,
+    error: null,
   };
 
   componentDidMount() {
@@ -26,18 +28,38 @@ export default class MainPage extends Component<MainPageState> {
         this.setState({
           people: data.results,
           loading: false,
+          error: null,
         }),
       )
       .catch(err => {
         console.error(err);
-        this.setState({ loading: false });
+        this.setState({
+          loading: false,
+          error: "Error fetching data",
+        });
       });
   }
+
+  searchPerson = async (name: string) => {
+    this.setState({ loading: true, error: null });
+
+    try {
+      const response = await fetch(
+        `https://swapi.py4e.com/api/people/?search=${name}`,
+      );
+      const data = await response.json();
+      this.setState({ people: data.results });
+    } catch (err) {
+      this.setState({ error: "Error fetching data" });
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
 
   render() {
     return (
       <div className="mainPage">
-        {/* <Search searchPeople={this.searchPeople} /> */}
+        <Search searchPerson={this.searchPerson} />
         {this.state.loading ? (
           <p>Loading...</p>
         ) : (
