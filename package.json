@@ -1,6 +1,7 @@
 {
   "name": "reactclasscomponents",
   "private": true,
+  "homepage": "https://ElenaSinelle.github.io/ReactClassComponents/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -9,7 +10,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format:fix": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -25,6 +27,7 @@
     "eslint-plugin-react-compiler": "^0.0.0-experimental-0998c1e-20240625",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "gh-pages": "^6.1.1",
     "husky": "^9.0.11",
     "prettier": "3.3.2",
     "typescript": "^5.2.2",
