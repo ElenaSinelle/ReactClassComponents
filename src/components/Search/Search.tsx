@@ -44,7 +44,7 @@ export default class Search extends Component<
       >
         <input
           className="searchInput"
-          placeholder="search"
+          placeholder="search by name"
           type="search"
           name="searchFormInput"
           value={this.state.search}
