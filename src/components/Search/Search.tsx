@@ -16,6 +16,15 @@ export default class Search extends Component<
     search: "",
   };
 
+  componentDidMount() {
+    const savedSearchedPerson = localStorage.getItem(
+      "searchedPerson",
+    );
+    if (savedSearchedPerson) {
+      this.setState({ search: savedSearchedPerson });
+    }
+  }
+
   handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({ search: e.target.value.trim() });
   };

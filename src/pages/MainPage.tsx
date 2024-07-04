@@ -22,25 +22,13 @@ export default class MainPage extends Component<MainPageState> {
   };
 
   componentDidMount() {
-    fetch("https://swapi.py4e.com/api/people/")
-      .then(response => response.json())
-      .then(data =>
-        this.setState({
-          people: data.results,
-          loading: false,
-          error: null,
-        }),
-      )
-      .catch(err => {
-        console.error(err);
-        this.setState({
-          loading: false,
-          error: "Error fetching data",
-        });
-      });
+    const savedSearchedPerson = localStorage.getItem(
+      "searchedPerson",
+    );
+    this.fetchPeople(savedSearchedPerson || "");
   }
 
-  searchPerson = async (name: string) => {
+  fetchPeople = async (name: string) => {
     this.setState({ loading: true, error: null });
 
     try {
@@ -54,6 +42,11 @@ export default class MainPage extends Component<MainPageState> {
     } finally {
       this.setState({ loading: false });
     }
+  };
+
+  searchPerson = (name: string) => {
+    localStorage.setItem("searchedPerson", name);
+    this.fetchPeople(name);
   };
 
   render() {
