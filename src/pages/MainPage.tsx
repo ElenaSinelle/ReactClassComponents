@@ -13,12 +13,14 @@ interface MainPageState {
   people: PersonData[];
   loading: boolean;
   error: string | null;
+  checkingError: boolean;
 }
 export default class MainPage extends Component<MainPageState> {
   state = {
     people: [],
     loading: true,
     error: null,
+    checkingError: false,
   };
 
   componentDidMount() {
@@ -49,15 +51,32 @@ export default class MainPage extends Component<MainPageState> {
     this.fetchPeople(name);
   };
 
+  errorCheck = () => {
+    this.setState({ checkingError: true });
+  };
+
   render() {
+    if (this.state.checkingError) {
+      throw new Error("Test Error");
+    }
+
     return (
       <div className="mainPage">
         <Search searchPerson={this.searchPerson} />
-        {this.state.loading ? (
-          <p>Loading...</p>
-        ) : (
-          <Results people={this.state.people} />
-        )}
+
+        <div className="resultBlock">
+          {this.state.loading ? (
+            <p>Loading...</p>
+          ) : (
+            <Results people={this.state.people} />
+          )}
+          <button
+            className="errorBoundary"
+            onClick={this.errorCheck}
+          >
+            Error Boundary Check
+          </button>
+        </div>
       </div>
     );
   }
