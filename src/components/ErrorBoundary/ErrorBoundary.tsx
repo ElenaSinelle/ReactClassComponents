@@ -27,7 +27,7 @@ export default class ErrorBoundary extends Component<
     );
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.hasError) {
       return this.props.fallback;
     }

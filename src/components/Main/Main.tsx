@@ -87,15 +87,29 @@
 //   }
 // }
 
+import { useState } from "react";
 import "./Main.css";
 
-export default function Main() {
+const Main: React.FC = () => {
+  const [hasError, setHasError] = useState(false);
+
+  const throwError = () => {
+    setHasError(true);
+  };
+
+  if (hasError) throw new Error("Test Error");
+
   return (
     <>
       <p>here will be main</p>
-      <button className="errorBoundaryCheck">
-        Error Check
+      <button
+        className="errorBoundaryCheck"
+        onClick={throwError}
+      >
+        Error Boundary Check
       </button>
     </>
   );
-}
+};
+
+export default Main;

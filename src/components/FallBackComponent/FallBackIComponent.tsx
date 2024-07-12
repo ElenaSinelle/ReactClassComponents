@@ -1,15 +1,19 @@
-import { Component } from "react";
+// import { Link } from "react-router-dom";
 import "./FallBackComponent.css";
 
-export default class FallBackComponent extends Component {
-  render() {
-    return (
-      <div className="fallBack">
-        <p className="fallBackMessage">
-          Something went wrong
-        </p>
-        <button onClick={() => history.go(0)}>Reset</button>
-      </div>
-    );
-  }
-}
+const FallBackComponent: React.FC = () => {
+  return (
+    <div className="fallBack">
+      <p className="fallBack__message">
+        Something went wrong
+      </p>
+      {/* <button onClick={() => history.go(0)}>Reset</button> */}
+      {/* <Link className="fallBack__homeLink" to="/">
+        {" "}
+        Go to Home Page
+      </Link> */}
+    </div>
+  );
+};
+
+export default FallBackComponent;
