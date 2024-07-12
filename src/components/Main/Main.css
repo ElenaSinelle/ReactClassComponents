@@ -1,4 +1,4 @@
-.mainPage {
+/* .mainPage {
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100vh;
@@ -12,7 +12,7 @@
   grid-template-columns: 1fr;
   grid-template-rows: 5fr 1fr;
   background-color: #dedff1;
-}
+} */
 
 .errorBoundaryCheck {
   display: flex;

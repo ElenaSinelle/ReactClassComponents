@@ -3,7 +3,7 @@ import "./NotFoundPage.css";
 
 export default function NotFoundPage() {
   return (
-    <div className="container notFound">
+    <div className="notFound">
       <h2 className="notFound__404">404</h2>
       <p className="notFound__title">
         This page does not exist

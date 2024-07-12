@@ -1,6 +1,6 @@
 // import { Component } from "react";
-// import Search from "../components/Search/Search";
-// import Results from "../components/Results/Results";
+// import Search from "../Search/Search";
+// import Results from "../Results/Results";
 // import "./MainPage.css";
 
 // interface PersonData {
@@ -15,7 +15,7 @@
 //   error: string | null;
 //   checkingError: boolean;
 // }
-// export default class MainPage extends Component<
+// export default class Main extends Component<
 //   Record<string, never>,
 //   MainPageState
 // > {
@@ -86,3 +86,16 @@
 //     );
 //   }
 // }
+
+import "./Main.css";
+
+export default function Main() {
+  return (
+    <>
+      <p>here will be main</p>
+      <button className="errorBoundaryCheck">
+        Error Check
+      </button>
+    </>
+  );
+}

@@ -1,9 +1,18 @@
+import Main from "../../components/Main/Main";
+import Search from "../../components/Search/Search";
 import "./HomePage.css";
 
-export default function HomePage() {
+const HomePage: React.FC = () => {
   return (
     <div className="homePage">
-      <h1 className="homePage__title">Home Page</h1>
+      <section className="top">
+        <Search />
+      </section>
+      <section className="bottom">
+        <Main />
+      </section>
     </div>
   );
-}
+};
+
+export default HomePage;
