@@ -87,11 +87,22 @@
 //   }
 // }
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Main.css";
+import Search from "../Search/Search";
+import Results from "../Results/Results";
+
+interface PersonData {
+  name: string;
+  gender: string;
+  birth_year: string;
+}
 
 const Main: React.FC = () => {
   const [hasError, setHasError] = useState(false);
+  const [people, setPeople] = useState<PersonData[]>([]);
+  const [isLoading, setIsLoading] =
+    useState<boolean>(false);
 
   const throwError = () => {
     setHasError(true);
@@ -99,15 +110,54 @@ const Main: React.FC = () => {
 
   if (hasError) throw new Error("Test Error");
 
+  const fetchPeople = async (name: string) => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(
+        `https://swapi.py4e.com/api/people/?search=${name}`,
+      );
+      const data = await response.json();
+      setPeople(data.results);
+    } catch (error) {
+      console.log("Error fetching data");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const savedSearchedPerson = localStorage.getItem(
+      "searchedPerson",
+    );
+    fetchPeople(savedSearchedPerson || "");
+  }, []);
+
+  const searchPerson = (name: string) => {
+    localStorage.setItem("searchedPerson", name);
+    fetchPeople(name);
+  };
+
   return (
     <>
-      <p>here will be main</p>
-      <button
-        className="errorBoundaryCheck"
-        onClick={throwError}
-      >
-        Error Boundary Check
-      </button>
+      <section className="top">
+        <Search searchPerson={searchPerson} />
+      </section>
+
+      <section className="bottom">
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <Results people={people} />
+        )}
+
+        <button
+          className="errorBoundaryCheck"
+          onClick={throwError}
+        >
+          Error Boundary Check
+        </button>
+      </section>
     </>
   );
 };

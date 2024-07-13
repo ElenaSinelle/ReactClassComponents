@@ -1,21 +1,12 @@
-/* .mainPage {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  min-height: 100vh;
-  height: 100%;
-  width: 100%;
-}
-
 .bottom {
   padding: 2rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 5fr 1fr;
+  grid-template-rows: 7fr 1fr;
   background-color: #dedff1;
-} */
+}
 
 .errorBoundaryCheck {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  align-self: center;
+  justify-self: center;
 }

@@ -1,4 +1,3 @@
-import { Component } from "react";
 import "./Results.css";
 import Person from "../Person/Person";
 
@@ -11,20 +10,20 @@ interface ResultsProps {
   people: PersonData[];
 }
 
-export default class Results extends Component<ResultsProps> {
-  render() {
-    const { people = [] } = this.props;
+const Results: React.FC<ResultsProps> = ({
+  people = [],
+}) => {
+  return (
+    <div className="people">
+      {people.length ? (
+        people.map(person => (
+          <Person key={person.name} person={person} />
+        ))
+      ) : (
+        <h4>Nothing found</h4>
+      )}
+    </div>
+  );
+};
 
-    return (
-      <div className="people">
-        {people.length ? (
-          people.map(person => (
-            <Person key={person.name} person={person} />
-          ))
-        ) : (
-          <h4>Nothing found</h4>
-        )}
-      </div>
-    );
-  }
-}
+export default Results;

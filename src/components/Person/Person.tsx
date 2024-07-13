@@ -1,4 +1,3 @@
-import { Component } from "react";
 import "./Person.css";
 
 interface PersonData {
@@ -11,20 +10,17 @@ interface PersonProps {
   person: PersonData;
 }
 
-export default class Person extends Component<PersonProps> {
-  render() {
-    const { person } = this.props;
-
-    return (
-      <div className="person">
-        <div className="name">Name: {person.name}</div>
-        <div className="gender">
-          Gender: {person.gender}
-        </div>
-        <div className="birthYear">
-          Date of Birth: {person.birth_year}
-        </div>
+const Person: React.FC<PersonProps> = ({ person }) => {
+  const { name, gender, birth_year } = person;
+  return (
+    <div className="person">
+      <div className="name">Name: {name}</div>
+      <div className="gender">Gender: {gender}</div>
+      <div className="birthYear">
+        Date of Birth: {birth_year}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Person;
