@@ -7,7 +7,7 @@ import "./Main.css";
 import Search from "../Search/Search";
 import Results from "../Results/Results";
 import PersonDetailed from "../PersonDetailed/PersonDetailed";
-import useLS from "../hooks/useLS";
+import useLS from "../../hooks/useLS";
 
 interface PersonData {
   name: string;
@@ -80,11 +80,23 @@ const Main: React.FC = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.stopPropagation();
-    setSearchParams({ page: newPage.toString() });
+    setSearchParams({
+      page: newPage.toString(),
+      details: detailsName || "",
+    });
   };
 
-  const handleCloseDetails = () => {
-    navigate("/");
+  const handleCloseDetails = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
+    const target = event.target as HTMLElement;
+    if (
+      target.tagName === "BUTTON" ||
+      target.closest("button")
+    ) {
+      return;
+    }
+    navigate(`/?page=${currentPage}`);
   };
 
   return (

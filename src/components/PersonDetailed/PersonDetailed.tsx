@@ -20,6 +20,7 @@ const PersonDetailed: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const name = searchParams.get("details");
+  const currentPage = searchParams.get("page");
 
   useEffect(() => {
     if (name) {
@@ -40,7 +41,7 @@ const PersonDetailed: React.FC = () => {
   }, [name]);
 
   const handleCloseDetails = () => {
-    navigate("/");
+    navigate(`/?page=${currentPage}`);
   };
 
   return (

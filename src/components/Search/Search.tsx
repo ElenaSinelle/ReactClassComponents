@@ -5,7 +5,7 @@ import {
   useState,
 } from "react";
 import "./Search.css";
-import useLS from "../hooks/useLS";
+import useLS from "../../hooks/useLS";
 
 interface SearchProps {
   searchPerson: (name: string) => void;
