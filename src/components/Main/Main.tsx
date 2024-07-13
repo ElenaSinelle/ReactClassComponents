@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {
+  useSearchParams,
+  useNavigate,
+} from "react-router-dom";
 import "./Main.css";
 import Search from "../Search/Search";
 import Results from "../Results/Results";
@@ -27,6 +30,8 @@ const Main: React.FC = () => {
   );
 
   const detailsName = searchParams.get("details");
+
+  const navigate = useNavigate();
 
   const throwError = () => {
     setHasError(true);
@@ -68,13 +73,17 @@ const Main: React.FC = () => {
     fetchPeople(name, 1);
   };
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = (
+    newPage: number,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.stopPropagation();
     setSearchParams({ page: newPage.toString() });
   };
 
-  // const handleCloseDetails = () => {
-  //   navigate("/");
-  // };
+  const handleCloseDetails = () => {
+    navigate("/");
+  };
 
   return (
     <div className="main">
@@ -90,25 +99,39 @@ const Main: React.FC = () => {
         ) : (
           <div className="bottom__content">
             <div
-              className="bottom__content_left"
-              // onClick={handleCloseDetails}
+              className={
+                !detailsName
+                  ? "bottom__content_wide"
+                  : "bottom__content_left"
+              }
+              onClick={handleCloseDetails}
             >
               <Results people={people} />
               <div className="pagination">
                 {currentPage > 1 && (
                   <button
-                    onClick={() =>
-                      handlePageChange(currentPage - 1)
+                    onClick={event =>
+                      handlePageChange(
+                        currentPage - 1,
+                        event,
+                      )
                     }
                   >
                     Previous
                   </button>
                 )}
-                <span>Page {currentPage}</span>
+                {currentPage > 1 && (
+                  <span className="currentPage">
+                    Page {currentPage}
+                  </span>
+                )}
                 {currentPage < totalPages && (
                   <button
-                    onClick={() =>
-                      handlePageChange(currentPage + 1)
+                    onClick={event =>
+                      handlePageChange(
+                        currentPage + 1,
+                        event,
+                      )
                     }
                   >
                     Next

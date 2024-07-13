@@ -22,7 +22,11 @@ const Results: React.FC<ResultsProps> = ({
   const [searchParams] = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
 
-  const handleShowDetails = (personName: string) => {
+  const handleShowDetails = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    personName: string,
+  ) => {
+    event.stopPropagation();
     navigate(`/?page=${currentPage}&details=${personName}`);
   };
 
@@ -33,7 +37,9 @@ const Results: React.FC<ResultsProps> = ({
           <PersonGeneral
             key={person.name}
             person={person}
-            handleShowDetails={handleShowDetails}
+            handleShowDetails={(event, name) =>
+              handleShowDetails(event, name)
+            }
           />
         ))
       ) : (

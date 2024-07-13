@@ -14,7 +14,7 @@ export default function App() {
     <Router basename="/rssReact">
       <ErrorBoundary fallback={<FallBackComponent />}>
         <Routes>
-          <Route path="/" element={<Main />}></Route>
+          <Route path="/" element={<Main />} />
           <Route
             path="details/:name"
             element={<PersonDetailed />}

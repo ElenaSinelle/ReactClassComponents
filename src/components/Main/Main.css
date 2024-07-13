@@ -21,16 +21,28 @@
   gap: 2rem;
 }
 
+.currentPage {
+  font-weight: bolder;
+  color: #3f449e;
+  font-size: larger;
+}
+
 .errorBoundaryCheck {
   align-self: center;
   justify-self: center;
 }
+
 .bottom__content {
   display: flex;
 }
 
 .bottom__content_left {
   width: 50%;
+  cursor: pointer;
+}
+
+.bottom__content_wide {
+  width: 100%;
 }
 
 .bottom__content_right {
