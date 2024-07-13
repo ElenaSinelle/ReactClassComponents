@@ -5,6 +5,7 @@ import {
   useState,
 } from "react";
 import "./Search.css";
+import useLS from "../hooks/useLS";
 
 interface SearchProps {
   searchPerson: (name: string) => void;
@@ -15,14 +16,11 @@ const Search: React.FC<SearchProps> = ({
 }) => {
   const [search, setSearch] = useState<string>("");
 
+  const [searchQuery] = useLS("searchedPerson");
+
   useEffect(() => {
-    const savedSearchedPerson = localStorage.getItem(
-      "searchedPerson",
-    );
-    if (savedSearchedPerson) {
-      setSearch(savedSearchedPerson);
-    }
-  }, []);
+    setSearch(searchQuery);
+  }, [searchQuery]);
 
   const handleInput = (
     e: ChangeEvent<HTMLInputElement>,

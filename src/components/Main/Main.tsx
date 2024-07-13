@@ -7,6 +7,7 @@ import "./Main.css";
 import Search from "../Search/Search";
 import Results from "../Results/Results";
 import PersonDetailed from "../PersonDetailed/PersonDetailed";
+import useLS from "../hooks/useLS";
 
 interface PersonData {
   name: string;
@@ -32,6 +33,10 @@ const Main: React.FC = () => {
   const detailsName = searchParams.get("details");
 
   const navigate = useNavigate();
+
+  const [searchQuery, setSearchQuery] = useLS(
+    "searchedPerson",
+  );
 
   const throwError = () => {
     setHasError(true);
@@ -61,14 +66,11 @@ const Main: React.FC = () => {
   };
 
   useEffect(() => {
-    const savedSearchedPerson = localStorage.getItem(
-      "searchedPerson",
-    );
-    fetchPeople(savedSearchedPerson || "", currentPage);
-  }, [currentPage]);
+    fetchPeople(searchQuery || "", currentPage);
+  }, [searchQuery, currentPage]);
 
   const searchPerson = (name: string) => {
-    localStorage.setItem("searchedPerson", name);
+    setSearchQuery(name);
     setSearchParams({ page: "1" });
     fetchPeople(name, 1);
   };
