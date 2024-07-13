@@ -1,93 +1,5 @@
-// import { Component } from "react";
-// import Search from "../Search/Search";
-// import Results from "../Results/Results";
-// import "./MainPage.css";
-
-// interface PersonData {
-//   name: string;
-//   gender: string;
-//   birth_year: string;
-// }
-
-// interface MainPageState {
-//   people: PersonData[];
-//   loading: boolean;
-//   error: string | null;
-//   checkingError: boolean;
-// }
-// export default class Main extends Component<
-//   Record<string, never>,
-//   MainPageState
-// > {
-//   state: MainPageState = {
-//     people: [],
-//     loading: true,
-//     error: null,
-//     checkingError: false,
-//   };
-
-//   componentDidMount() {
-//     const savedSearchedPerson = localStorage.getItem(
-//       "searchedPerson",
-//     );
-//     this.fetchPeople(savedSearchedPerson || "");
-//   }
-
-//   fetchPeople = async (name: string) => {
-//     this.setState({ loading: true, error: null });
-
-//     try {
-//       const response = await fetch(
-//         `https://swapi.py4e.com/api/people/?search=${name}`,
-//       );
-//       const data = await response.json();
-//       this.setState({ people: data.results });
-//     } catch (err) {
-//       this.setState({ error: "Error fetching data" });
-//     } finally {
-//       this.setState({ loading: false });
-//     }
-//   };
-
-//   searchPerson = (name: string) => {
-//     localStorage.setItem("searchedPerson", name);
-//     this.fetchPeople(name);
-//   };
-
-//   errorCheck = (): void => {
-//     this.setState({ checkingError: true });
-//   };
-
-//   render() {
-//     if (this.state.checkingError) {
-//       throw new Error("Test Error");
-//     }
-
-//     return (
-//       <div className="mainPage">
-//         <section className="top">
-//           <Search searchPerson={this.searchPerson} />
-//         </section>
-
-//         <section className="bottom">
-//           {this.state.loading ? (
-//             <p>Loading...</p>
-//           ) : (
-//             <Results people={this.state.people} />
-//           )}
-
-//           <div className="errorBoundaryCheck">
-//             <button onClick={this.errorCheck}>
-//               Error Boundary Check
-//             </button>
-//           </div>
-//         </section>
-//       </div>
-//     );
-//   }
-// }
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import "./Main.css";
 import Search from "../Search/Search";
 import Results from "../Results/Results";
@@ -103,6 +15,14 @@ const Main: React.FC = () => {
   const [people, setPeople] = useState<PersonData[]>([]);
   const [isLoading, setIsLoading] =
     useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = parseInt(
+    searchParams.get("page") || "1",
+    10,
+  );
 
   const throwError = () => {
     setHasError(true);
@@ -110,16 +30,22 @@ const Main: React.FC = () => {
 
   if (hasError) throw new Error("Test Error");
 
-  const fetchPeople = async (name: string) => {
+  const fetchPeople = async (
+    name: string,
+    page: number = 1,
+  ) => {
     setIsLoading(true);
+    setError(null);
 
     try {
       const response = await fetch(
-        `https://swapi.py4e.com/api/people/?search=${name}`,
+        `https://swapi.py4e.com/api/people/?search=${name}&page=${page}`,
       );
       const data = await response.json();
       setPeople(data.results);
+      setTotalPages(Math.ceil(data.count / 10));
     } catch (error) {
+      setError("Error fetching data");
       console.log("Error fetching data");
     } finally {
       setIsLoading(false);
@@ -130,12 +56,21 @@ const Main: React.FC = () => {
     const savedSearchedPerson = localStorage.getItem(
       "searchedPerson",
     );
-    fetchPeople(savedSearchedPerson || "");
-  }, []);
+    fetchPeople(savedSearchedPerson || "", currentPage);
+  }, [currentPage]);
 
   const searchPerson = (name: string) => {
     localStorage.setItem("searchedPerson", name);
-    fetchPeople(name);
+    setSearchParams({ page: "1" });
+    fetchPeople(name, 1);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({ page: newPage.toString() });
+    const savedSearchedPerson = localStorage.getItem(
+      "searchedPerson",
+    );
+    fetchPeople(savedSearchedPerson || "", newPage);
   };
 
   return (
@@ -147,8 +82,33 @@ const Main: React.FC = () => {
       <section className="bottom">
         {isLoading ? (
           <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
         ) : (
-          <Results people={people} />
+          <>
+            <Results people={people} />
+            <div className="pagination">
+              {currentPage > 1 && (
+                <button
+                  onClick={() =>
+                    handlePageChange(currentPage - 1)
+                  }
+                >
+                  Previous
+                </button>
+              )}
+              <span>Page {currentPage}</span>
+              {currentPage < totalPages && (
+                <button
+                  onClick={() =>
+                    handlePageChange(currentPage + 1)
+                  }
+                >
+                  Next
+                </button>
+              )}
+            </div>
+          </>
         )}
 
         <button

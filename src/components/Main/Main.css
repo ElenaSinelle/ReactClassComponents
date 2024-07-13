@@ -2,8 +2,15 @@
   padding: 2rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 7fr 1fr;
+  grid-template-rows: 7fr 1fr 1fr;
   background-color: #dedff1;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .errorBoundaryCheck {
