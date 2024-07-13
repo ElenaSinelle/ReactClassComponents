@@ -1,8 +1,16 @@
+.main {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+}
+
 .bottom {
   padding: 2rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 7fr 1fr 1fr;
+  grid-template-rows: 8fr 1fr 1fr;
   background-color: #dedff1;
 }
 
@@ -16,4 +24,17 @@
 .errorBoundaryCheck {
   align-self: center;
   justify-self: center;
+}
+.bottom__content {
+  display: flex;
+}
+
+.bottom__content_left {
+  width: 50%;
+}
+
+.bottom__content_right {
+  border-left: 1px solid #ccc;
+  width: 50%;
+  padding-left: 20px;
 }

@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import "./Main.css";
 import Search from "../Search/Search";
 import Results from "../Results/Results";
+import PersonDetailed from "../PersonDetailed/PersonDetailed";
 
 interface PersonData {
   name: string;
@@ -19,10 +20,13 @@ const Main: React.FC = () => {
 
   const [totalPages, setTotalPages] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
+
   const currentPage = parseInt(
     searchParams.get("page") || "1",
     10,
   );
+
+  const detailsName = searchParams.get("details");
 
   const throwError = () => {
     setHasError(true);
@@ -46,7 +50,6 @@ const Main: React.FC = () => {
       setTotalPages(Math.ceil(data.count / 10));
     } catch (error) {
       setError("Error fetching data");
-      console.log("Error fetching data");
     } finally {
       setIsLoading(false);
     }
@@ -67,14 +70,14 @@ const Main: React.FC = () => {
 
   const handlePageChange = (newPage: number) => {
     setSearchParams({ page: newPage.toString() });
-    const savedSearchedPerson = localStorage.getItem(
-      "searchedPerson",
-    );
-    fetchPeople(savedSearchedPerson || "", newPage);
   };
 
+  // const handleCloseDetails = () => {
+  //   navigate("/");
+  // };
+
   return (
-    <>
+    <div className="main">
       <section className="top">
         <Search searchPerson={searchPerson} />
       </section>
@@ -85,30 +88,40 @@ const Main: React.FC = () => {
         ) : error ? (
           <p>{error}</p>
         ) : (
-          <>
-            <Results people={people} />
-            <div className="pagination">
-              {currentPage > 1 && (
-                <button
-                  onClick={() =>
-                    handlePageChange(currentPage - 1)
-                  }
-                >
-                  Previous
-                </button>
-              )}
-              <span>Page {currentPage}</span>
-              {currentPage < totalPages && (
-                <button
-                  onClick={() =>
-                    handlePageChange(currentPage + 1)
-                  }
-                >
-                  Next
-                </button>
-              )}
+          <div className="bottom__content">
+            <div
+              className="bottom__content_left"
+              // onClick={handleCloseDetails}
+            >
+              <Results people={people} />
+              <div className="pagination">
+                {currentPage > 1 && (
+                  <button
+                    onClick={() =>
+                      handlePageChange(currentPage - 1)
+                    }
+                  >
+                    Previous
+                  </button>
+                )}
+                <span>Page {currentPage}</span>
+                {currentPage < totalPages && (
+                  <button
+                    onClick={() =>
+                      handlePageChange(currentPage + 1)
+                    }
+                  >
+                    Next
+                  </button>
+                )}
+              </div>
             </div>
-          </>
+            {detailsName && (
+              <div className="bottom__content_right">
+                <PersonDetailed />
+              </div>
+            )}
+          </div>
         )}
 
         <button
@@ -118,7 +131,7 @@ const Main: React.FC = () => {
           Error Boundary Check
         </button>
       </section>
-    </>
+    </div>
   );
 };
 

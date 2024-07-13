@@ -1,11 +1,16 @@
+import {
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import "./Results.css";
-import Person from "../Person/Person";
+import PersonGeneral from "../PersonGeneral/PersonGeneral";
 
 interface PersonData {
   name: string;
   gender: string;
   birth_year: string;
 }
+
 interface ResultsProps {
   people: PersonData[];
 }
@@ -13,11 +18,23 @@ interface ResultsProps {
 const Results: React.FC<ResultsProps> = ({
   people = [],
 }) => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const currentPage = searchParams.get("page") || "1";
+
+  const handleShowDetails = (personName: string) => {
+    navigate(`/?page=${currentPage}&details=${personName}`);
+  };
+
   return (
     <div className="people">
       {people.length ? (
         people.map(person => (
-          <Person key={person.name} person={person} />
+          <PersonGeneral
+            key={person.name}
+            person={person}
+            handleShowDetails={handleShowDetails}
+          />
         ))
       ) : (
         <h4>Nothing found</h4>

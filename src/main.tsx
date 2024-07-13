@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.tsx";
-import FallBackComponent from "./components/FallBackComponent/FallBackIComponent.tsx";
+import FallBackComponent from "./components/FallBackComponent/FallBackComponent.tsx";
 
 ReactDOM.createRoot(
   document.getElementById("root")!,
