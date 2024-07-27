@@ -4,24 +4,23 @@ import {
   Routes,
 } from "react-router-dom";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
-import Main from "./components/Main/Main";
+import MainPage from "./components/MainPage/MainPage";
 import PersonDetailed from "./components/PersonDetailed/PersonDetailed";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import FallBackComponent from "./components/FallBackComponent/FallBackComponent";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 export default function App() {
   return (
-    <Router basename="/rssReact">
-      <ErrorBoundary fallback={<FallBackComponent />}>
+    <ThemeProvider>
+      <Router basename="/rssReact">
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<MainPage />} />
           <Route
             path="details/:name"
             element={<PersonDetailed />}
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </ErrorBoundary>
-    </Router>
+      </Router>
+    </ThemeProvider>
   );
 }

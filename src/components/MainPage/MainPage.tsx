@@ -3,11 +3,13 @@ import {
   useSearchParams,
   useNavigate,
 } from "react-router-dom";
-import "./Main.css";
+import "./MainPage.css";
 import Search from "../Search/Search";
 import Results from "../Results/Results";
 import PersonDetailed from "../PersonDetailed/PersonDetailed";
+import SwitchMode from "../SwitchMode/SwitchMode";
 import useLS from "../../hooks/useLS";
+import { useTheme } from "../../contexts/useTheme";
 
 interface PersonData {
   name: string;
@@ -15,7 +17,8 @@ interface PersonData {
   birth_year: string;
 }
 
-const Main: React.FC = () => {
+const MainPage: React.FC = () => {
+  const { theme } = useTheme();
   const [hasError, setHasError] = useState(false);
   const [people, setPeople] = useState<PersonData[]>([]);
   const [isLoading, setIsLoading] =
@@ -101,11 +104,11 @@ const Main: React.FC = () => {
 
   return (
     <div className="main">
-      <section className="top">
+      <section>
         <Search searchPerson={searchPerson} />
       </section>
 
-      <section className="bottom">
+      <section className={`bottom ${theme}`}>
         {isLoading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -124,6 +127,7 @@ const Main: React.FC = () => {
               <div className="pagination">
                 {currentPage > 1 && (
                   <button
+                    className={theme}
                     onClick={event =>
                       handlePageChange(
                         currentPage - 1,
@@ -141,6 +145,7 @@ const Main: React.FC = () => {
                 )}
                 {currentPage < totalPages && (
                   <button
+                    className={theme}
                     onClick={event =>
                       handlePageChange(
                         currentPage + 1,
@@ -161,15 +166,19 @@ const Main: React.FC = () => {
           </div>
         )}
 
-        <button
-          className="errorBoundaryCheck"
-          onClick={throwError}
-        >
-          Error Boundary Check
-        </button>
+        <div className="bottom__buttons">
+          <button
+            className={`errorBoundaryCheck ${theme}`}
+            onClick={throwError}
+          >
+            Error Boundary Check
+          </button>
+
+          <SwitchMode />
+        </div>
       </section>
     </div>
   );
 };
 
-export default Main;
+export default MainPage;

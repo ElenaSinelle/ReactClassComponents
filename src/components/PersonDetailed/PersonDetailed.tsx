@@ -4,6 +4,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import "./PersonDetailed.css";
+import { useTheme } from "../../contexts/useTheme";
 
 interface PersonData {
   name: string;
@@ -21,6 +22,7 @@ const PersonDetailed: React.FC = () => {
   const navigate = useNavigate();
   const name = searchParams.get("details");
   const currentPage = searchParams.get("page");
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (name) {
@@ -57,7 +59,10 @@ const PersonDetailed: React.FC = () => {
           <div className="birthYear">
             Date of Birth: {person.birth_year}
           </div>
-          <button onClick={handleCloseDetails}>
+          <button
+            className={theme}
+            onClick={handleCloseDetails}
+          >
             Close Details
           </button>
         </div>

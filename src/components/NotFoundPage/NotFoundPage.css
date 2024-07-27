@@ -16,28 +16,3 @@
   font-weight: bolder;
   font-size: 1.3rem;
 }
-
-.notFound__homeLink {
-  width: 14rem;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #8f91b6;
-  color: #213547;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all ease 0.5s;
-}
-
-.notFound__homeLink:hover {
-  border-color: #646cff;
-  background-color: #c6c8f7;
-}
-
-.notFound__homeLink:focus,
-.notFound__homeLink:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}

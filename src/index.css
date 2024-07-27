@@ -11,6 +11,23 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --bg-light: #dedff1;
+  --bg-dark: #242446;
+
+  --bg-top-light: #9697b6;
+  --bg-top-dark: #454669;
+
+  --text-light: #213547;
+  --text-dark: #cccccc;
+
+  --button-light: #7779a5;
+  --button-dark: #8183b1;
+
+  --button-hover-light: #989bd5;
+  --button-hover-dark: #454872;
+
+  --input-light: #d7d7e7;
 }
 
 * {
@@ -51,16 +68,62 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #8f91b6;
-  color: #213547;
   cursor: pointer;
   transition: all ease 0.5s;
 }
-button:hover {
-  border-color: #646cff;
-  background-color: #c6c8f7;
+
+button.light {
+  background-color: var(--button-light);
+  color: var(--text-light);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+button.dark {
+  background-color: var(--button-dark);
+  color: var(--text-dark);
+}
+
+button:hover.light {
+  background-color: var(--button-hover-light);
+}
+
+button:hover.dark {
+  background-color: var(--button-hover-dark);
+}
+
+.search {
+  padding: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.search.light {
+  background-color: var(--bg-top-light);
+}
+
+.search.dark {
+  background-color: var(--bg-top-dark);
+}
+
+input {
+  width: 20rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  outline: none;
+  background-color: var(--input-light);
+}
+
+.bottom.light {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+.bottom.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
 }

@@ -4,8 +4,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import "./Search.css";
+import "../../index.css";
 import useLS from "../../hooks/useLS";
+import { useTheme } from "../../contexts/useTheme";
 
 interface SearchProps {
   searchPerson: (name: string) => void;
@@ -14,8 +15,8 @@ interface SearchProps {
 const Search: React.FC<SearchProps> = ({
   searchPerson,
 }) => {
+  const { theme } = useTheme();
   const [search, setSearch] = useState<string>("");
-
   const [searchQuery] = useLS("searchedPerson");
 
   useEffect(() => {
@@ -36,12 +37,11 @@ const Search: React.FC<SearchProps> = ({
 
   return (
     <form
-      className="search"
+      className={`search ${theme}`}
       onSubmit={handleSearch}
       name="searchForm"
     >
       <input
-        className="searchInput"
         placeholder="search by name"
         type="search"
         name="searchFormInput"
@@ -50,7 +50,7 @@ const Search: React.FC<SearchProps> = ({
       />
 
       <button
-        className="searchButton"
+        className={theme}
         type="submit"
         name="searchFormButton"
       >
