@@ -1,3 +1,4 @@
+import React from "react";
 import "./Pagination.css";
 import { useTheme } from "../../contexts/useTheme";
 import { PaginationProps } from "./Pagination.types";
@@ -8,28 +9,35 @@ const Pagination: React.FC<PaginationProps> = ({
   handlePageChange,
 }) => {
   const { theme } = useTheme();
+
+  const onPageChange = (
+    newPage: number,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+    handlePageChange(newPage, event);
+  };
+
   return (
     <div className="pagination">
       {currentPage > 1 && (
         <button
           className={theme}
           onClick={event =>
-            handlePageChange(currentPage - 1, event)
+            onPageChange(currentPage - 1, event)
           }
         >
           Previous
         </button>
       )}
-      {currentPage > 1 && (
-        <span className="currentPage">
-          Page {currentPage}
-        </span>
-      )}
+      <span className="currentPage">
+        Page {currentPage} of {totalPages}
+      </span>
       {currentPage < totalPages && (
         <button
           className={theme}
           onClick={event =>
-            handlePageChange(currentPage + 1, event)
+            onPageChange(currentPage + 1, event)
           }
         >
           Next

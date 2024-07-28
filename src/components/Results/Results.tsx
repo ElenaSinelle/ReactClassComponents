@@ -1,3 +1,4 @@
+import React from "react";
 import {
   useNavigate,
   useSearchParams,
@@ -6,9 +7,7 @@ import "./Results.css";
 import PersonGeneral from "../PersonGeneral/PersonGeneral";
 import { ResultsProps } from "./Results.types";
 
-const Results: React.FC<ResultsProps> = ({
-  people = [],
-}) => {
+const Results: React.FC<ResultsProps> = ({ people }) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
@@ -28,9 +27,7 @@ const Results: React.FC<ResultsProps> = ({
           <PersonGeneral
             key={person.name}
             person={person}
-            handleShowDetails={(event, name) =>
-              handleShowDetails(event, name)
-            }
+            handleShowDetails={handleShowDetails}
           />
         ))
       ) : (

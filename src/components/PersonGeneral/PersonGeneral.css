@@ -1,4 +1,12 @@
 .personGeneral {
+  width: 13rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.personGeneral__name {
   padding: 0.5rem;
   cursor: pointer;
 }

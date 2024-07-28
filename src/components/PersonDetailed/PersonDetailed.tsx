@@ -1,41 +1,20 @@
-import React, { useEffect, useState } from "react";
 import {
   useSearchParams,
   useNavigate,
 } from "react-router-dom";
 import "./PersonDetailed.css";
 import { useTheme } from "../../contexts/useTheme";
-import { PersonData } from "../../types/common.types";
+import { useGetPersonQuery } from "../../services/peopleApi";
 
 const PersonDetailed: React.FC = () => {
-  const [person, setPerson] = useState<PersonData | null>(
-    null,
-  );
-  const [isLoading, setIsLoading] =
-    useState<boolean>(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const name = searchParams.get("details");
-  const currentPage = searchParams.get("page");
+  const name = searchParams.get("details") || "";
+  const currentPage = searchParams.get("page") || "1";
   const { theme } = useTheme();
 
-  useEffect(() => {
-    if (name) {
-      setIsLoading(true);
-      fetch(
-        `https://swapi.py4e.com/api/people/?search=${name}`,
-      )
-        .then(response => response.json())
-        .then(data => {
-          setPerson(data.results[0] || null);
-          setIsLoading(false);
-        })
-        .catch(error => {
-          console.error("Error fetching details:", error);
-          setIsLoading(false);
-        });
-    }
-  }, [name]);
+  const { data, error, isLoading } =
+    useGetPersonQuery(name);
 
   const handleCloseDetails = () => {
     navigate(`/?page=${currentPage}`);
@@ -45,14 +24,18 @@ const PersonDetailed: React.FC = () => {
     <div className="personDetails">
       {isLoading ? (
         <p>Loading details...</p>
-      ) : person ? (
+      ) : error ? (
+        <p>Error loading details</p>
+      ) : data?.results.length ? (
         <div className="person">
-          <div className="name">Name: {person.name}</div>
+          <div className="name">
+            Name: {data.results[0].name}
+          </div>
           <div className="gender">
-            Gender: {person.gender}
+            Gender: {data.results[0].gender}
           </div>
           <div className="birthYear">
-            Date of Birth: {person.birth_year}
+            Date of Birth: {data.results[0].birth_year}
           </div>
           <button
             className={theme}
