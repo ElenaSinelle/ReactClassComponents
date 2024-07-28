@@ -1,18 +1,5 @@
 import "./PersonGeneral.css";
-
-interface PersonData {
-  name: string;
-  gender: string;
-  birth_year: string;
-}
-
-interface PersonProps {
-  person: PersonData;
-  handleShowDetails: (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    name: string,
-  ) => void;
-}
+import { PersonProps } from "./PersonGeneral.types";
 
 const PersonGeneral: React.FC<PersonProps> = ({
   person,

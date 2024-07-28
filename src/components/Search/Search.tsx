@@ -7,10 +7,7 @@ import {
 import "../../index.css";
 import useLS from "../../hooks/useLS";
 import { useTheme } from "../../contexts/useTheme";
-
-interface SearchProps {
-  searchPerson: (name: string) => void;
-}
+import { SearchProps } from "./Search.types";
 
 const Search: React.FC<SearchProps> = ({
   searchPerson,

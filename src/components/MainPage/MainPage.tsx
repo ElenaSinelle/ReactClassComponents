@@ -10,12 +10,7 @@ import PersonDetailed from "../PersonDetailed/PersonDetailed";
 import SwitchMode from "../SwitchMode/SwitchMode";
 import useLS from "../../hooks/useLS";
 import { useTheme } from "../../contexts/useTheme";
-
-interface PersonData {
-  name: string;
-  gender: string;
-  birth_year: string;
-}
+import { PersonData } from "../../types/common.types";
 
 const MainPage: React.FC = () => {
   const { theme } = useTheme();

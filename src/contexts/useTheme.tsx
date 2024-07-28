@@ -1,12 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "./ThemeContext";
-
-type Theme = "light" | "dark";
-
-interface ThemeContextProps {
-  theme: Theme;
-  toggleTheme: () => void;
-}
+import { ThemeContextProps } from "./ThemeContext.types";
 
 export const useTheme = (): ThemeContextProps => {
   const context = useContext(ThemeContext);

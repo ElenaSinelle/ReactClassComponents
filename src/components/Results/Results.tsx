@@ -4,16 +4,7 @@ import {
 } from "react-router-dom";
 import "./Results.css";
 import PersonGeneral from "../PersonGeneral/PersonGeneral";
-
-interface PersonData {
-  name: string;
-  gender: string;
-  birth_year: string;
-}
-
-interface ResultsProps {
-  people: PersonData[];
-}
+import { ResultsProps } from "./Results.types";
 
 const Results: React.FC<ResultsProps> = ({
   people = [],

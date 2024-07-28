@@ -5,12 +5,7 @@ import {
 } from "react-router-dom";
 import "./PersonDetailed.css";
 import { useTheme } from "../../contexts/useTheme";
-
-interface PersonData {
-  name: string;
-  gender: string;
-  birth_year: string;
-}
+import { PersonData } from "../../types/common.types";
 
 const PersonDetailed: React.FC = () => {
   const [person, setPerson] = useState<PersonData | null>(
