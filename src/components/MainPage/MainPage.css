@@ -14,19 +14,6 @@
   background-color: #dedff1;
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.currentPage {
-  font-weight: bolder;
-  color: #3f449e;
-  font-size: larger;
-}
-
 .errorBoundaryCheck {
   align-self: center;
   justify-self: center;

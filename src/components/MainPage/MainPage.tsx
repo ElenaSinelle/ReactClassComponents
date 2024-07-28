@@ -7,6 +7,8 @@ import "./MainPage.css";
 import Search from "../Search/Search";
 import Results from "../Results/Results";
 import PersonDetailed from "../PersonDetailed/PersonDetailed";
+import Pagination from "../Pagination/Pagination";
+import ErrorCheckButton from "../ErrorBoundaryButton/ErrorBoundaryButton";
 import SwitchMode from "../SwitchMode/SwitchMode";
 import useLS from "../../hooks/useLS";
 import { useTheme } from "../../contexts/useTheme";
@@ -14,7 +16,6 @@ import { PersonData } from "../../types/common.types";
 
 const MainPage: React.FC = () => {
   const { theme } = useTheme();
-  const [hasError, setHasError] = useState(false);
   const [people, setPeople] = useState<PersonData[]>([]);
   const [isLoading, setIsLoading] =
     useState<boolean>(false);
@@ -35,12 +36,6 @@ const MainPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useLS(
     "searchedPerson",
   );
-
-  const throwError = () => {
-    setHasError(true);
-  };
-
-  if (hasError) throw new Error("Test Error");
 
   const fetchPeople = async (
     name: string,
@@ -119,39 +114,11 @@ const MainPage: React.FC = () => {
               onClick={handleCloseDetails}
             >
               <Results people={people} />
-              <div className="pagination">
-                {currentPage > 1 && (
-                  <button
-                    className={theme}
-                    onClick={event =>
-                      handlePageChange(
-                        currentPage - 1,
-                        event,
-                      )
-                    }
-                  >
-                    Previous
-                  </button>
-                )}
-                {currentPage > 1 && (
-                  <span className="currentPage">
-                    Page {currentPage}
-                  </span>
-                )}
-                {currentPage < totalPages && (
-                  <button
-                    className={theme}
-                    onClick={event =>
-                      handlePageChange(
-                        currentPage + 1,
-                        event,
-                      )
-                    }
-                  >
-                    Next
-                  </button>
-                )}
-              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                handlePageChange={handlePageChange}
+              />
             </div>
             {detailsName && (
               <div className="bottom__content_right">
@@ -162,13 +129,7 @@ const MainPage: React.FC = () => {
         )}
 
         <div className="bottom__buttons">
-          <button
-            className={`errorBoundaryCheck ${theme}`}
-            onClick={throwError}
-          >
-            Error Boundary Check
-          </button>
-
+          <ErrorCheckButton />
           <SwitchMode />
         </div>
       </section>
