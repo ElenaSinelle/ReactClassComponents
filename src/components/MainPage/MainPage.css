@@ -7,11 +7,10 @@
 }
 
 .bottom {
-  padding: 2rem;
+  padding: 1rem 5rem 4.5rem;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 6fr 1fr;
-  background-color: #dedff1;
 }
 
 .errorBoundaryCheck {
@@ -24,18 +23,13 @@
 }
 
 .bottom__content_left {
-  width: 50%;
+  width: 50vw;
+  padding-right: 2rem;
   cursor: pointer;
 }
 
 .bottom__content_wide {
   width: 100%;
-}
-
-.bottom__content_right {
-  border-left: 1px solid #cccccc;
-  width: 50%;
-  padding-left: 20px;
 }
 
 .bottom__buttons {

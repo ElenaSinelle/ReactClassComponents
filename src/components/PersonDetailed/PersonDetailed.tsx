@@ -3,6 +3,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import "./PersonDetailed.css";
+import "../../index.css";
 import { useTheme } from "../../contexts/useTheme";
 import { useGetPersonQuery } from "../../services/peopleApi";
 
@@ -21,13 +22,13 @@ const PersonDetailed: React.FC = () => {
   };
 
   return (
-    <div className="personDetails">
+    <div className="person">
       {isLoading ? (
         <p>Loading details...</p>
       ) : error ? (
         <p>Error loading details</p>
       ) : data?.results.length ? (
-        <div className="person">
+        <div className="person__details">
           <div className="name">
             Name: {data.results[0].name}
           </div>

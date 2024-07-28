@@ -28,3 +28,5 @@ export const peopleApi = createApi({
 
 export const { useGetPeopleQuery, useGetPersonQuery } =
   peopleApi;
+
+export const peopleAPIReducer = peopleApi.reducer;

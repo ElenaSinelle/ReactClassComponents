@@ -1,4 +1,13 @@
 .person {
+  width: 50%;
+  border-left: 1px solid #cccccc;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.person__details {
   padding: 1rem;
   border-radius: 0.3rem;
   border: 1px solid #cccccc;
